@@ -7,10 +7,11 @@ import DomainForm from '../components/DomainForm';
 import useDomainStudents from '../hooks/useDomainStudents';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Alert from '../components/Alert';
 
 const DomainDetail = () => {
   const { domain_id } = useParams();
-  const { domain, fetchDomain } = useDomain();
+  const { domain, fetchDomain , alertMessage, setAlertMessage } = useDomain();
   const { domainStudents, fetchStudents } = useDomainStudents();
   const [showEditModal, setShowEditModal] = useState(false);
 //   const [students, setStudents] = useState([]);
@@ -30,6 +31,7 @@ const DomainDetail = () => {
 
   return (
     <>
+    {alertMessage && <Alert message={alertMessage} closeAlert={ setAlertMessage } />}
     <Header isloggedIn ={true}/>
     <div className="container mx-auto my-4 px-4">
       {domain ? (

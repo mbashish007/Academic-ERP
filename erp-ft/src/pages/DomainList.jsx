@@ -4,9 +4,10 @@ import useDomain from '../hooks/useDomain';
 import DomainForm from '../components/DomainForm';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Alert from '../components/Alert';
 
 const DomainList = () => {
-  const { domains, fetchDomains, deleteDomain } = useDomain();
+  const { domains, fetchDomains, deleteDomain , alertMessage, setAlertMessage} = useDomain();
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const handleCreateModalClose = () => setShowCreateModal(false);
@@ -16,6 +17,7 @@ const DomainList = () => {
 
   return (
     <>
+      {alertMessage && <Alert message={alertMessage} closeAlert={ setAlertMessage } />}
       <Header isloggedIn={true} />
       <div className="container mx-auto my-4 px-4">
         <div className="flex justify-between items-center p-7 bg-white rounded-t-2xl">

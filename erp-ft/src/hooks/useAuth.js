@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const useAuth = () => {
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
+  const [alertMessage, setAlertMessage] = useState('');
 
   const login = async (username, password) => {
     try {
@@ -18,12 +19,16 @@ const useAuth = () => {
         localStorage.setItem('jwtToken', token);
         setToken(token);
         navigate('/domain'); // Redirect to the dashboard or any other page
-      } else {
-        alert('Authentication failed');
       }
     } catch (error) {
       console.error('Login failed:', error);
-      alert('Authentication failed');
+      // alert('Authentication failed');
+      if (error.status !== 500) {
+        setAlertMessage(error.response.data);
+      }
+      else {
+        setAlertMessage("Unexpected Error Occured!")
+      }
     }
   };
 
@@ -33,7 +38,7 @@ const useAuth = () => {
     navigate('/');
   };
 
-  return { token, login, logout };
+  return { token, login, logout, alertMessage, setAlertMessage };
 };
 
 export default useAuth;

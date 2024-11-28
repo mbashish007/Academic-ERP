@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const useDomain = () => {
   const [domains, setDomains] = useState([]);
   const [domain, setDomain] = useState(null);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const fetchDomains = async () => {
     try {
@@ -21,6 +22,12 @@ const useDomain = () => {
       }
     } catch (error) {
       console.error('Failed to fetch domains:', error);
+      if (error.status !== 500) {
+        setAlertMessage(error.response.data);
+      }
+      else {
+        setAlertMessage("Unexpected Error Occured!")
+      }
     }
   };
 
@@ -37,6 +44,13 @@ const useDomain = () => {
       }
     } catch (error) {
       console.error('Failed to fetch domain:', error);
+      
+      if (error.status !== 500) {
+        setAlertMessage(error.response.data);
+      }
+      else {
+        setAlertMessage("Unexpected Error Occured!")
+      }
     }
   };
 
@@ -53,6 +67,13 @@ const useDomain = () => {
       }
     } catch (error) {
       console.error('Failed to create domain:', error);
+      
+      if (error.status !== 500) {
+        setAlertMessage(error.response.data);
+      }
+      else {
+        setAlertMessage("Unexpected Error Occured!")
+      }
     }
   };
 
@@ -69,6 +90,13 @@ const useDomain = () => {
       }
     } catch (error) {
       console.error('Failed to update domain:', error);
+      
+      if (error.status !== 500) {
+        setAlertMessage(error.response.data);
+      }
+      else {
+        setAlertMessage("Unexpected Error Occured!")
+      }
     }
   };
 
@@ -85,6 +113,13 @@ const useDomain = () => {
       }
     } catch (error) {
       console.error('Failed to delete domain:', error);
+      
+      if (error.status !== 500) {
+        setAlertMessage(error.response.data);
+      }
+      else {
+        setAlertMessage("Unexpected Error Occured!")
+      }
     }
   };
 
@@ -92,7 +127,7 @@ const useDomain = () => {
     fetchDomains();
   }, []);
 
-  return { domains, domain, fetchDomains, fetchDomain, createDomain, updateDomain, deleteDomain };
+  return { domains, domain, fetchDomains, fetchDomain, createDomain, updateDomain, deleteDomain , alertMessage, setAlertMessage};
 };
 
 export default useDomain;
