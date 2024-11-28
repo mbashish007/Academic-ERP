@@ -34,6 +34,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ex.getMsg();
     }
 
+    @ExceptionHandler(io.jsonwebtoken.ExpiredJwtException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public String jwtExpiredExceptionHandler(io.jsonwebtoken.ExpiredJwtException ex) {
+        return "Session expired";
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGeneralException(Exception ex) {
         return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
