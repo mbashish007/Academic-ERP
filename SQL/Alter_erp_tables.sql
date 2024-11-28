@@ -1,0 +1,6 @@
+ALTER TABLE students 
+ADD CONSTRAINT domain_fk
+FOREIGN KEY (domain)
+REFERENCES domains(domain_id)
+ON DELETE set NULL
+ON UPDATE CASCADE;
