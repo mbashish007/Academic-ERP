@@ -35,7 +35,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(io.jsonwebtoken.ExpiredJwtException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public String jwtExpiredExceptionHandler(io.jsonwebtoken.ExpiredJwtException ex) {
         return "Session expired";
