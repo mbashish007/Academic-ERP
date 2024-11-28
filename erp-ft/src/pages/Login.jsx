@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Alert from '../components/Alert';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login , alertMessage, setAlertMessage} = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +16,7 @@ const Login = () => {
 
   return (
     <>
+    {alertMessage && <Alert message={alertMessage} closeAlert={ setAlertMessage } />}
     <Header isloggedIn ={false}/>
     <div className="fixed inset-0 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow w-full max-w-md">
