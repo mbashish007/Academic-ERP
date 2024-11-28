@@ -6,10 +6,14 @@ import edu.academia.ERP.dto.StudentRequest;
 import edu.academia.ERP.dto.StudentResponse;
 import edu.academia.ERP.entity.Domain;
 import edu.academia.ERP.entity.Student;
+import edu.academia.ERP.repo.DomainRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class StudentMapper {
+    DomainRepo domainRepo ;
     public Student toEntity(StudentRequest request) {
         return Student.builder()
                 .roll_number(request.roll_number())
@@ -19,7 +23,7 @@ public class StudentMapper {
                 .cgpa(request.cgpa())
                 .total_credits(request.total_credits())
                 .graduation_year(request.graduation_year())
-                .domain(request.domain())
+                .domain(domainRepo.getReferenceById(request.domain()))
                 .specialisation(request.specialisation())
                 .placement_id(request.placement_id())
                 .build();
@@ -27,7 +31,7 @@ public class StudentMapper {
 
     public StudentResponse toResponseDTO(Student student) {
         return new StudentResponse(
-                student.getStudent_id(), student.getRoll_number(), student.getFirst_name(), student.getLast_name(), student.getPhotograph_path(), student.getCgpa(), student.getTotal_credits(), student.getGraduation_year(), student.getDomain(), student.getSpecialisation(), student.getPlacement_id()
+                student.getStudent_id(), student.getRoll_number(), student.getFirst_name(), student.getLast_name(), student.getPhotograph_path(), student.getCgpa(), student.getTotal_credits(), student.getGraduation_year(), student.getDomain().getDomain_id(), student.getSpecialisation(), student.getPlacement_id()
         );
     }
 }

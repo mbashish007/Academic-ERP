@@ -25,7 +25,11 @@ public class Student {
     private Double cgpa;
     private int total_credits;
     private String graduation_year;
-    private Long domain;
+
+    @ManyToOne
+    @JoinColumn(name = "domain")
+    private Domain domain;
+
     private Long specialisation;
     private Long placement_id;
 }

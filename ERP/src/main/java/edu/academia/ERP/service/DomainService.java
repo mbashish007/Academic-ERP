@@ -64,7 +64,7 @@ public class DomainService {
 
     public List<StudentResponse> getAllStudentsByDomain(Long id) throws DomainNotFoundException {
         if (repo.existsById(id)) {
-            return studentRepo.findAllByDomain(id).stream().map(studentMapper::toResponseDTO).toList();
+            return studentRepo.findAllByDomainId(id).stream().map(studentMapper::toResponseDTO).toList();
         }
         else
             throw new DomainNotFoundException("Domain Does not exist");
